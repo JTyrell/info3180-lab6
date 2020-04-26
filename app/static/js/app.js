@@ -1,4 +1,57 @@
 /* Add your Application JavaScript */
+
+Vue.component('news-list', {
+    template: `
+      <div class="news">
+          <h2>News</h2>
+
+        <div class="form-inline d-flex justify-content-center">
+            <div class="form-group mx-sm-3 mb-2">
+              <label class="sr-only" for="search">Search</label>
+              <input type="search" name="search" v-model="searchTerm"
+              id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
+              <button class="btn btn-primary mb-2"@click="searchNews">Search</button>
+            </div>
+        </div>
+
+
+        <ul class="news__list row " type ='none' >
+          <li class='card mb-1 news__item mr-3 mb-3 col-sm-3' v-for="article in articles">
+            <h5 class='card-title'>{{ article.title }} </h5>
+            <img class="art-pic" v-bind:src="article.urlToImage" height="100%" width="100%">
+            <p class="card-text text-muted"> {{ article.description}} </p>
+          </li>
+        </ul>
+
+      </div >
+    `,
+
+    created: function() {
+      let self = this;
+          fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=fb20b3ee37e2452696f1a1b1724e6b2e")
+            .then(function(response) {return response.json(); })
+            .then(function(data) {self.articles = data.articles});
+          } 
+
+    data: function(){
+          return{
+            articles: [],
+            searchTerm : ''
+          }
+        },
+
+      methods:{
+          searchNews: function() {
+            let self = this;
+            fetch('https://newsapi.org/v2/everything?q='+ self.searchTerm + '&language=en&apiKey=fb20b3ee37e2452696f1a1b1724e6b2e')
+            .then(function(response) {return response.json();})
+            .then(function(data) {self.articles = data.articles;});
+          }
+        }
+});
+
+
+
 Vue.component('app-header', {
     template: `
         <header>
@@ -12,6 +65,7 @@ Vue.component('app-header', {
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">News</a>
@@ -26,28 +80,7 @@ Vue.component('app-header', {
     }
 });
 
-Vue.component('news-list', {
-    template: `
-        <div class="news">
-          <h2>News</h2>
-          <ul class="news__list">
-              <li class="news__item">News item 1</li>
-              <li class="news__item">News item 2</li>
-              <li class="news__item">News item 3</li>
-          </ul>
-        </div>
-    `,
-    created: function() {
-          fetch(`https://newsapi.org/v2/top-headlines?
-          country=us&apiKey='4a18ae97130c4a8fb1c0f78823778bf3'`)
-            .then(function(response) {
-              return response.json();
-            })
-            .then(function(data) {
-              console.log(data);
-            });
-          } 
-});
+
 
 Vue.component('app-footer', {
     template: `
@@ -62,16 +95,32 @@ Vue.component('app-footer', {
             year: (new Date).getFullYear()
         }
     }
-})
-
-
-let app = new Vue({
-    el: '#app',
-    data: {
-        welcome: 'Hello World! Welcome to VueJS'
-    }
 });
 
 
+const Home = Vue.component('home', {
+    template: `
+      <div class="home">
+        <img src="/static/images/logo.png" alt="VueJS Logo">
+        <h1>{{ welcome }}</h1>
+      </div>
+    `,
+    data: function() {
+      return {
+        welcome: 'Hello World! Welcome to VueJS'
+      }
+    }
+   });
 
-
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+      { path: '/', component: Home },
+      { path: '/news', component: NewsList }
+    ]
+   });
+   
+const app = new Vue({
+      el: '#app',
+      router
+  });
