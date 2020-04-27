@@ -13,10 +13,10 @@ const Newslist = Vue.component('news-list',{
 
 
         </div>
-        <ul class="news__list row linin2-0" type ='none' >
-          <li class='card mb-1 news__item  linin mr-2 mb-2 col-sm-3' v-for="article in articles">
+        <ul class="news__list row linin2-0" type ='none'>
+          <li class='card mb-1 linin mr-2 mb-2 col-sm-3' v-for="article in articles">
             <h5 class='card-title'>{{ article.title }} </h5>
-            <img class="art-pic" v-bind:src="article.urlToImage" height="100%" width="100%">
+            <img v-bind:src="article.urlToImage" height="35%" width="100%">
             <p class="card-text text-muted"> {{ article.description}} </p>
           </li>
         </ul>
@@ -25,7 +25,8 @@ const Newslist = Vue.component('news-list',{
 
     created: function() {
       let self = this;
-      fetch('https://newsapi.org/v2/everything?q='+ self.searchTerm + '&language=en&apiKey=<key-to-go-here>')
+      // fetch('https://newsapi.org/v2/everything?q='+ self.searchTerm + '&language=en&apiKey=<key-to-go-here>')
+      fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=fb20b3ee37e2452696f1a1b1724e6b2e')
       .then(function(response) {return response.json();})
       .then(function(data) {self.articles = data.articles
       });
@@ -41,7 +42,8 @@ const Newslist = Vue.component('news-list',{
     methods: {
       searchNews: function() {
         let self = this;
-        fetch('https://newsapi.org/v2/everything?q='+ self.searchTerm + '&language=en&apiKey=<key-to-go-here>')
+        // fetch('https://newsapi.org/v2/everything?q='+ self.searchTerm + '&language=en&apiKey=<key-to-go-here>')
+        fetch('https://newsapi.org/v2/everything?q='+ self.searchTerm + '&language=en&apiKey=fb20b3ee37e2452696f1a1b1724e6b2e')
         .then(function(response) {return response.json();})
         .then(function(data) {self.articles = data.articles;
         });

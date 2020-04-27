@@ -9,6 +9,7 @@ footer  {
 .card {
     border-top-color: purple;
     border-top-width: 5px;
+    overflow:auto;
     
 }
 
@@ -22,11 +23,6 @@ footer  {
     text-decoration-color: purple;
     background-color: pink;
     }
-
-/*.news__item {
-    height:50%; 
-    width:25%;
-  }*/
 
 /*.linin{
 	 align-items: center;
