@@ -7,10 +7,33 @@ footer  {
 }
 
 .card {
-    border-top-color: lightblue ;
-    border-top-width: 3px;
+    border-top-color: purple;
+    border-top-width: 5px;
+    
 }
 
-.news__item {
-    height:60%; 
-    width:30%;
+.srchbar {
+    border-color: purple;
+    border-top-width: 5px;
+    }
+
+
+.nvbar {
+    text-decoration-color: purple;
+    background-color: pink;
+    }
+
+/*.news__item {
+    height:50%; 
+    width:25%;
+  }*/
+
+/*.linin{
+	 align-items: center;
+	 justify-content: center;
+}*/
+
+.linin2-0{
+	vertical-align: top;
+	justify-content: center;
+}

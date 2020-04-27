@@ -19,13 +19,8 @@
     <div id="app">
         <app-header></app-header>
         <main>
-            <div class="container">
-                <div class="text-center">
-                    <img src="/static/images/logo.png" alt="VueJS Logo">
-                    <h1>{{ welcome }}</h1>
-                    <news-list></news-list>
+            <div class="container">                      
                     <router-view></router-view>
-                </div>
             </div>
         </main>
         <app-footer></app-footer>
@@ -37,5 +32,6 @@
     <script src="/static/js/vue.js"></script>
     <script src="/static/js/vue-router.js"></script>
     <script src="/static/js/app.js"></script>
+    <script src="/static/css/app.css"></script>
   </body>
 </html>
